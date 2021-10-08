@@ -1,1 +1,8 @@
 Django==3.2.8
+
+
+# Test
+pytest==6.2.5
+pytest-django==4.4.0
+factory-boy==3.2.0
+pytest-factoryboy==2.1.0
