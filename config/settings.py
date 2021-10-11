@@ -31,10 +31,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
+
 # Local apps
 LOCAL_APPS = [
     "apps.products.apps.ProductsConfig",
+    "apps.prestashop.apps.PrestashopConfig",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -120,3 +123,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Prestashop Settings
+PRESTASHOP_TOKEN = env('PRESTASHOP_TOKEN', default="")
+PRESTASHOP_URL_BASE = env('PRESTASHOP_URL_BASE', default="")

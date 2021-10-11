@@ -1,6 +1,7 @@
 import factory
 from faker import Faker
 from apps.products.models import Product, Category, Tag
+from apps.prestashop.models import PrestashopSynchronizer
 
 fake = Faker()
 
@@ -38,3 +39,12 @@ class CategoryFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Category
+
+
+class PrestashopSynchronizerFactory(factory.django.DjangoModelFactory):
+    entity_id = 1
+    prestashop_entity_id = 1
+    entity_type = PrestashopSynchronizer.PRODUCT
+
+    class Meta:
+        model = PrestashopSynchronizer
