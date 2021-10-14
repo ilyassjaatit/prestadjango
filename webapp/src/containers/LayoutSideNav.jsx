@@ -25,13 +25,13 @@ const LayoutSideNav = () => {
                                 <div className="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                                      data-bs-parent="#sidenavAccordion">
                                     <nav className="sb-sidenav-menu-nested nav">
-                                        <Link className="nav-link" to="#">Products</Link>
-                                        <Link className="nav-link" to="layout-sidenav-light.html">Add Products</Link>
+                                        <Link className="nav-link" to="Products">Products</Link>
+                                        <Link className="nav-link" to="">Add Products</Link>
                                     </nav>
                                 </div>
 
                                 <div className="sb-sidenav-menu-heading">Statistics</div>
-                                <a className="nav-link" href="charts.html">
+                                <a className="nav-link" href="">
                                     <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div>
                                     Sales
                                 </a>
