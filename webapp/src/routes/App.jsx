@@ -1,8 +1,21 @@
 import React from 'react';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Layout from "../containers/Layout";
+import Home from "../pages/Home";
+import NotFound from "../pages/NotFound";
 import '../scss/styles.scss'
+
+
 const App = () => {
     return (
-        <h1>Set up react</h1>
+        <BrowserRouter>
+            <Layout>
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route path="*" component={NotFound}/>
+                </Switch>
+            </Layout>
+        </BrowserRouter>
     );
 }
 
