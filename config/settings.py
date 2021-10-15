@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = [
 
 # Local apps
 LOCAL_APPS = [
+    "apps.users.apps.UsersConfig",
     "apps.products.apps.ProductsConfig",
     "apps.prestashop.apps.PrestashopConfig",
 ]
@@ -56,6 +57,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
+AUTH_USER_MODEL = "users.User"
 
 ROOT_URLCONF = 'config.urls'
 

@@ -1,8 +1,9 @@
 import pytest
 from pytest_factoryboy import register
-from tests.factories import ProductFactory
+from tests.factories import ProductFactory, UserFactory
 
 # Register factories to pytest global namespace.
+register(UserFactory)
 register(ProductFactory)
 
 
