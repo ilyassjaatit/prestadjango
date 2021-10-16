@@ -128,3 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .idea
+
+# ignore migrations in the mvp prototype
+apps/**/migrations/*.py
+!apps/**/migrations/__init__.py
