@@ -3,6 +3,7 @@ import Footer from "../containers/Footer";
 import "@scss/pages/_login.scss"
 
 const Login = () => {
+    console.log(process.env.REACT_APP_BASEURL)
     const form = useRef(null)
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -51,10 +52,11 @@ const Login = () => {
                         </div>
                     </main>
                 </div>
+                <div id="layoutAuthentication_footer">
+                    <Footer></Footer>
+                </div>
             </div>
-            <div id="layoutAuthentication_footer">
-               <Footer></Footer>
-            </div>
+
         </React.Fragment>
     );
 
