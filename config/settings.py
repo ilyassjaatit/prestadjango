@@ -36,6 +36,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'django_extensions',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 # Local apps
@@ -135,3 +136,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Prestashop Settings
 PRESTASHOP_TOKEN = env('PRESTASHOP_TOKEN', default="")
 PRESTASHOP_URL_BASE = env('PRESTASHOP_URL_BASE', default="")
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'PAGE_SIZE': 15
+}
