@@ -21,7 +21,7 @@ const LoginErrors = ({httpError}) => {
 }
 
 const Login = () => {
-    const { addUser } = useContext(AppContext)
+    const { addUser, addAuthToken } = useContext(AppContext)
     const [httpError, setHttpError] = useState()
 
     const form = useRef(null)
@@ -32,7 +32,7 @@ const Login = () => {
             username: formData.get('username'),
             password: formData.get('password'),
         }
-        auth(data, setHttpError, addUser)
+        auth(data, setHttpError, addUser, addAuthToken)
 
 
     }

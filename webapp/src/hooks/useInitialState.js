@@ -1,7 +1,17 @@
 import {useState} from "react"
 
+const userIsLogged = () => {
+    const user = JSON.parse(sessionStorage.getItem("user"))
+    if (user) {
+        return user
+    }
+    return {}
+}
+
 const initialState = {
-    user: {}
+    app_name: process.env.REACT_APP_NAME,
+    user: userIsLogged(),
+    auth_token: localStorage.getItem("auth_token")
 }
 
 const useInitialState = () => {
@@ -9,10 +19,13 @@ const useInitialState = () => {
     const addUser = (payload) => {
         setState({...state, user: payload})
     }
-
+    const addAuthToken = (payload) => {
+        setState({...state, auth_token: payload})
+    };
     return {
         state,
-        addUser
+        addUser,
+        addAuthToken
     }
 }
 

@@ -4,7 +4,7 @@ import axios from 'axios'
 const AUTH_URL = process.env.REACT_APP_BASEURL + "auth-token/"
 const API_URL = process.env.REACT_APP_API_ENDPOIN
 
-async function auth(data, setHttpError, addUser) {
+async function auth(data, setHttpError, addUser, addAuthToken) {
     await axios.post(
         AUTH_URL, {
             "username": data['username'],
@@ -12,7 +12,10 @@ async function auth(data, setHttpError, addUser) {
         }
     ).then(response => {
             let token = response.data['token']
+            addAuthToken(token)
+            localStorage.setItem("auth_token", token)
             getMe(token).then((response) => {
+                sessionStorage.setItem("user", JSON.stringify(response.data))
                 addUser(response.data)
             })
         }
