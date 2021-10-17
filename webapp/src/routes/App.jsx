@@ -12,7 +12,11 @@ import '../scss/styles.scss'
 const App = () => {
     const initialState = useInitialState()
     if (!initialState.state.user.id) {
-        return (<Login></Login>);
+        return (
+            <AppContext.Provider value={initialState}>
+                <Login></Login>
+            </AppContext.Provider>
+        );
     }
     return (
         <AppContext.Provider value={initialState}>

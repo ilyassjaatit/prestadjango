@@ -37,6 +37,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 # Local apps
@@ -52,6 +53,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -137,11 +139,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PRESTASHOP_TOKEN = env('PRESTASHOP_TOKEN', default="")
 PRESTASHOP_URL_BASE = env('PRESTASHOP_URL_BASE', default="")
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
-    'PAGE_SIZE': 15
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]

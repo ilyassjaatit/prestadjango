@@ -1,9 +1,29 @@
-import React, {useRef} from "react";
+import React, {useState, useRef, useContext, Fragment} from "react";
 import Footer from "../containers/Footer";
 import "@scss/pages/_login.scss"
+import Alert from 'react-bootstrap/Alert'
+import AppContext from "../context/AppContext";
+import {auth} from "../hooks/useAuth"
+
+
+const LoginErrors = ({httpError}) => {
+    if (httpError) {
+        if (httpError.message) {
+            return (
+                <Alert variant="danger">
+                    {httpError.message}
+                </Alert>
+            )
+        }
+    }
+    return (<Fragment></Fragment>)
+
+}
 
 const Login = () => {
-    console.log(process.env.REACT_APP_BASEURL)
+    const { addUser } = useContext(AppContext)
+    const [httpError, setHttpError] = useState()
+
     const form = useRef(null)
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -11,9 +31,10 @@ const Login = () => {
         const data = {
             username: formData.get('username'),
             password: formData.get('password'),
-
         }
-        console.log(data.password)
+        auth(data, setHttpError, addUser)
+
+
     }
     return (
         <React.Fragment>
