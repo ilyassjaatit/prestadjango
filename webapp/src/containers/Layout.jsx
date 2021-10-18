@@ -1,6 +1,7 @@
 import React from "react";
 import SbTopNav from "./SbTopNav";
 import LayoutSideNav from "./LayoutSideNav";
+import Footer from "./Footer";
 
 const Layout = ({children}) => {
     return (
@@ -14,13 +15,7 @@ const Layout = ({children}) => {
                             {children}
                         </div>
                     </main>
-                    <footer className="py-4 bg-light mt-auto">
-                        <div className="container-fluid px-4">
-                            <div className="d-flex align-items-center justify-content-between small">
-                                <div className="text-muted">Copyright &copy; Ilyass Jaatit 2021</div>
-                            </div>
-                        </div>
-                    </footer>
+                    <Footer/>
                 </div>
             </div>
 
