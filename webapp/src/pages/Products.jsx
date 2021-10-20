@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const Home = () => {
+const Products = () => {
     return (
         <React.Fragment>
             <h1 className="mt-4">Products</h1>
@@ -13,4 +13,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Products;
