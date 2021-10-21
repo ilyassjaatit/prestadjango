@@ -4,7 +4,7 @@ import Layout from "../containers/Layout";
 import AppContext from "../context/AppContext";
 import useInitialState from "../hooks/useInitialState";
 import Home from "@pages/Home";
-import Products from "@pages/Products";
+import Product from "@pages/Product";
 import NotFound from "@pages/NotFound";
 import Login from "@pages/Login";
 import '../scss/styles.scss'
@@ -25,7 +25,7 @@ const App = () => {
                 <Layout>
                     <Switch>
                         <Route exact path="/" component={Home}/>
-                        <Route path="/products" component={Products}/>
+                        <Route path="/products" component={Product}/>
                         <Route path="*" component={NotFound}/>
                     </Switch>
                 </Layout>
