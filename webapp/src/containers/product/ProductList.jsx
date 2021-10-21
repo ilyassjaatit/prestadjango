@@ -1,26 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import DataTable from 'react-data-table-component';
-import axios from "axios";
-import AppContext from "../../context/AppContext";
-
-async  function getProducts(page=false, state) {
-    let API_URL = process.env.REACT_APP_API_ENDPOIN + "products/"
-    if (page !== false) {
-        API_URL = API_URL + "?page=" + page
-    }
-    const config = {
-            method: 'get',
-            url: API_URL,
-            headers: {
-                'Authorization': 'Token ' + state.auth_token
-            }
-        };
-    const response = await axios(config)
-    return response
-}
+import {getProductList} from "../../hooks/useProduct";
 
 const ProductList = () => {
-    const {state} = useContext(AppContext)
     const [products, setProducts] = useState({});
     const [loading, setLoading] = useState(true);
     const [totalRows, setTotalRows] = useState(0);
@@ -33,7 +15,7 @@ const ProductList = () => {
 
     useEffect(() => {
         setLoading(true)
-        getProducts(page, state).then(response => {
+        getProductList(page).then(response => {
             setProducts(response.data.results)
             setTotalRows(response.data.count)
             setLoading(false)
@@ -42,7 +24,7 @@ const ProductList = () => {
 
 
     useEffect(() => {
-        getProducts(false, state).then(response => {
+        getProductList(false).then(response => {
             setProducts(response.data.results)
             setTotalRows(response.data.count)
             setLoading(false)
