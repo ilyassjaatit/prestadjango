@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import ProductList from '../containers/product/ProductList';
 
 const Products = () => {
     return (
@@ -9,6 +10,7 @@ const Products = () => {
                 <li className="breadcrumb-item"><Link to="/">Home</Link></li>
                 <li className="breadcrumb-item active">Products</li>
             </ol>
+            <ProductList/>
         </React.Fragment>
     );
 }
