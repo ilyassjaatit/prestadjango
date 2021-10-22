@@ -8,19 +8,23 @@ pytestmark = pytest.mark.django_db
 
 def test_save_product():
     product = {
-        "id": 1,
-        "name": "product name",
-        "reference": '0001'
+        'id': 99999999,
+        "reference": "ref 123",
+        'name': [
+            {'id': '1', 'value': 'product name'}
+        ]
     }
+    product_name = product['name'][0]['value']
+
     save_product(product)
-    db_product = Product.objects.get(sku=product['reference'],
-                                     name=product['name'])
 
     prest_sync = PrestaSync.objects.get(prestashop_entity_id=product['id'],
-                                        entity_id=db_product.pk,
-                                        entity_type=PrestaSync.PRODUCT)
+                                        entity_type=PrestaSync.PRODUCT,
+                                        raw_data=product
+                                        )
     assert prest_sync is not None
-    assert db_product.name == product['name']
+    assert prest_sync.__str__() == PrestaSync.PRODUCT + " " + product_name
+
 
 def test_update_product():
     product = {

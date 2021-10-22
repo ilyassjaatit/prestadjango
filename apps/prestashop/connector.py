@@ -13,16 +13,13 @@ def update_product(product):
 
 def save_product(product):
     prestashop_sync = PrestaSync.objects.filter(entity_type=PrestaSync.PRODUCT,
-                                                       prestashop_entity_id=product["id"])
+                                                 prestashop_entity_id=product["id"])
 
     if not prestashop_sync:
-        new_product = Product.objects.create(
-            name=product['name'],
-            sku=product['reference']
-        )
         PrestaSync.objects.create(entity_type=PrestaSync.PRODUCT,
                                   prestashop_entity_id=product["id"],
-                                  entity_id=new_product.pk)
+                                  raw_data=product
+                                  )
     else:
         update_product(product)
 

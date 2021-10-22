@@ -71,7 +71,12 @@ class CategoryFactory(factory.django.DjangoModelFactory):
 class PrestashopSynchronizerFactory(factory.django.DjangoModelFactory):
     entity_id = 1
     prestashop_entity_id = 1
-    entity_type = PrestashopSynchronizer.PRODUCT
+    raw_data = {
+        'id': 99999999,
+        'name': [
+            {'id': '1', 'value': 'product name'}
+        ]
+    }
 
     class Meta:
         model = PrestashopSynchronizer
