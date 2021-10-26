@@ -37,6 +37,8 @@ class UserFactory(factory.django.DjangoModelFactory):
 class CustomerFactory(factory.django.DjangoModelFactory):
     first_name = fake.bothify("first_name ????-########")
     last_name = fake.bothify("last_name ????-########")
+    email = factory.LazyAttributeSequence(lambda o, n: '%s@s%d.example.com' % (o, n))
+    created_at = '2021-09-19 15:50:44'
 
     class Meta:
         model = Customer

@@ -8,6 +8,12 @@ register(ProductFactory)
 register(CustomerFactory)
 
 
+@pytest.fixture()
+def create_user():
+    user = UserFactory(username="name")
+    yield user
+
+
 @pytest.fixture
 def create_products(db, product_factory):
     def _create_products(size=10):

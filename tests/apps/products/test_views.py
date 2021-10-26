@@ -10,12 +10,6 @@ from tests.factories import UserFactory
 NUM_OF_PRODUCTS = 30
 
 
-@pytest.fixture()
-def create_user():
-    user = UserFactory(username="name")
-    yield user
-
-
 class TestProductViewSet:
 
     def test_list(self, rf, create_products, create_user):
