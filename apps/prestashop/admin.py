@@ -1,4 +1,9 @@
 from django.contrib import admin
 from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 
-admin.site.register(PrestaSync)
+
+class PrestashopSynchronizerAdmin(admin.ModelAdmin):
+    list_display = ('pk', "__str__", 'entity_id', 'status',)
+
+
+admin.site.register(PrestaSync, PrestashopSynchronizerAdmin)

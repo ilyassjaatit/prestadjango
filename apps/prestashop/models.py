@@ -26,13 +26,15 @@ class PrestashopSynchronizer(models.Model):
     )
     entity_type = models.CharField(
         max_length=20,
+        editable=False,
         help_text=_("Type Entity"),
         choices=ENTITY_TYPE_CHOICES,
     )
-    raw_data = models.JSONField()
+    raw_data = models.JSONField(editable=False)
     status = models.CharField(
         max_length=20,
         help_text=_("Status"),
+        editable=False,
         choices=STATUS_CHOICES,
         default=STATUS_NOT_CREATED
     )
