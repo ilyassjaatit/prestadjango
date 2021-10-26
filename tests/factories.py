@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 import factory
 from faker import Faker
-from apps.products.models import Product, Category, Tag
+from apps.products.models import Product, ProductImage, Category, Tag
 from apps.prestashop.models import PrestashopSynchronizer
 
 fake = Faker()
@@ -38,6 +38,13 @@ class ProductFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Product
+
+
+class ProductImageFactory(factory.django.DjangoModelFactory):
+    product = factory.SubFactory(ProductFactory)
+
+    class Meta:
+        model = ProductImage
 
 
 class TagFactory(factory.django.DjangoModelFactory):
