@@ -5,8 +5,10 @@ from django.utils.translation import gettext_lazy as _
 class PrestashopSynchronizer(models.Model):
     """Synchronize prestashop data with system"""
     ENTITY_TYPE_PRODUCT = "PRODUCT"
+    ENTITY_TYPE_COSTUMER = "COSTUMER"
     ENTITY_TYPE_CHOICES = [
-        (ENTITY_TYPE_PRODUCT, _('product'))
+        (ENTITY_TYPE_PRODUCT, _('product')),
+        (ENTITY_TYPE_COSTUMER, _('costumer')),
     ]
     STATUS_NOT_CREATED = "NOT_CREATED"
     STATUS_CREATED = "CREATED"
@@ -44,11 +46,13 @@ class PrestashopSynchronizer(models.Model):
     def __str__(self):
         if self.entity_type == self.ENTITY_TYPE_PRODUCT:
             return str(self.entity_type) + " " + self.raw_data['name'][0]['value']
+        elif self.entity_type == self.ENTITY_TYPE_COSTUMER:
+            return str(self.entity_type) + " " + self.raw_data['lastname']
         else:
             self.entity_type
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['entity_id', 'prestashop_entity_id', 'entity_type'],
+            models.UniqueConstraint(fields=['entity_id', 'prestashop_entity_id'],
                                     name="prestashop_synchronizer_constraint")
         ]

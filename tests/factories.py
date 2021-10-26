@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 import factory
 from faker import Faker
+from apps.customers.models import Customer
 from apps.products.models import Product, ProductImage, Category, Tag
 from apps.prestashop.models import PrestashopSynchronizer
 
@@ -31,6 +32,16 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = get_user_model()
         django_get_or_create = ["username"]
+
+
+class CustomerFactory(factory.django.DjangoModelFactory):
+    first_name = fake.bothify("first_name ????-########")
+    last_name = fake.bothify("last_name ????-########")
+    email = factory.LazyAttributeSequence(lambda o, n: '%s@s%d.example.com' % (o, n))
+    created_at = '2021-09-19 15:50:44'
+
+    class Meta:
+        model = Customer
 
 
 class ProductFactory(factory.django.DjangoModelFactory):

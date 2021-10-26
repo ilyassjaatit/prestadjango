@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = [
 # Local apps
 LOCAL_APPS = [
     "apps.users.apps.UsersConfig",
+    "apps.customers.apps.CustomersConfig",
     "apps.products.apps.ProductsConfig",
     "apps.prestashop.apps.PrestashopConfig",
 ]
