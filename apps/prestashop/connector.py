@@ -1,4 +1,4 @@
-from urllib.parse import urlencode
+from abc import ABC
 import requests
 
 from django.conf import settings
@@ -24,6 +24,38 @@ class PsConnector:
         except requests.exceptions.RequestException as e:
             print(e)
             raise
+
+    def get(self, url):
+        return self._get(url)
+
+    def url_base(self):
+        return self._URL_BASE
+
+
+class PsGetResources(PsConnector, ABC):
+    resources_name: str
+    singular_name: str
+
+    def _url(self, ps_id=None):
+        url = str(self.url_base()) + str(self.resources_name)
+        if ps_id:
+            return url + "/" + str(ps_id) + "/"
+        return url
+
+    def url(self, id_resource=None):
+        return self._url(id_resource)
+
+    def _resources(self):
+        return self.get(self.url())
+
+    def _resource(self, id_resource):
+        print(self.url())
+        return self.get(self.url(id_resource))
+
+    def resources(self, id_resource=None):
+        if id_resource:
+            return self._resource(id_resource).json()[self.singular_name]
+        return self._resources().json()[self.resources_name]
 
 
 class PsProduct(PsConnector):
@@ -115,6 +147,33 @@ class PsCustomers(PsConnector):
 
             if customer.pk:
                 PrestaSync.objects.filter(pk=ps.pk).update(status=PrestaSync.STATUS_CREATED, entity_id=customer.pk)
+
+
+class PsOrders(PsGetResources):
+    resources_name = 'orders'
+    singular_name = 'order'
+
+    def _exist_item(self, id):
+        return self.sync_model \
+            .objects \
+            .filter(entity_type=PrestaSync.ENTITY_TYPE_ORDERS,
+                    prestashop_entity_id=id)
+
+    def save_items(self):
+        if not self.items:
+            self.items = self.resources()
+        for item in self.items:
+            if not self._exist_item(item['id']):
+                data = self.resources(item['id'])
+                import time
+                time.sleep(.3)
+                self.sync_model.objects.create(
+                    prestashop_entity_id=item['id'],
+                    entity_type=PrestaSync.ENTITY_TYPE_ORDERS,
+                    raw_data=data
+                )
+            else:
+                print(item)
 
 
 def update_product(product):
