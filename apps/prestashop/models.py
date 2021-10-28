@@ -6,6 +6,7 @@ class PrestashopSynchronizer(models.Model):
     """Synchronize prestashop data with system"""
     ENTITY_TYPE_PRODUCT = "PRODUCT"
     ENTITY_TYPE_COSTUMER = "COSTUMER"
+    ENTITY_TYPE_ORDERS = "ORDERS"
     ENTITY_TYPE_CHOICES = [
         (ENTITY_TYPE_PRODUCT, _('product')),
         (ENTITY_TYPE_COSTUMER, _('costumer')),
