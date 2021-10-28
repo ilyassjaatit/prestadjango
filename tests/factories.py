@@ -1,7 +1,9 @@
+from datetime import datetime
 from django.contrib.auth import get_user_model
 import factory
 from faker import Faker
 from apps.customers.models import Customer
+from apps.orders.models import Order
 from apps.products.models import Product, ProductImage, Category, Tag
 from apps.prestashop.models import PrestashopSynchronizer
 
@@ -98,3 +100,11 @@ class PrestashopSynchronizerFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = PrestashopSynchronizer
+
+
+class OrderFactory(factory.django.DjangoModelFactory):
+    customer = factory.SubFactory(CustomerFactory)
+    created_at = datetime.now()
+
+    class Meta:
+        model = Order
