@@ -1,22 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from .config import *
 
 
 class PrestashopSynchronizer(models.Model):
     """Synchronize prestashop data with system"""
-    ENTITY_TYPE_PRODUCT = "PRODUCT"
-    ENTITY_TYPE_COSTUMER = "COSTUMER"
-    ENTITY_TYPE_ORDERS = "ORDERS"
-    ENTITY_TYPE_CHOICES = [
-        (ENTITY_TYPE_PRODUCT, _('product')),
-        (ENTITY_TYPE_COSTUMER, _('costumer')),
-    ]
-    STATUS_NOT_CREATED = "NOT_CREATED"
-    STATUS_CREATED = "CREATED"
-    STATUS_CHOICES = [
-        (STATUS_NOT_CREATED, _("Not created")),
-        (STATUS_CREATED, _("created")),
-    ]
+
     entity_id = models.IntegerField(
         help_text=_("Id entity"),
         editable=False,
