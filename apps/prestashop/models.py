@@ -20,7 +20,7 @@ class PrestashopSynchronizer(models.Model):
         max_length=20,
         editable=False,
         help_text=_("Type Entity"),
-        choices=ENTITY_TYPE_CHOICES,
+        choices=RESOURCES_TYPE_CHOICES,
     )
     raw_data = models.JSONField(editable=False)
     status = models.CharField(
@@ -34,9 +34,9 @@ class PrestashopSynchronizer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        if self.entity_type == self.ENTITY_TYPE_PRODUCT:
+        if self.entity_type == RESOURCES_TYPE_PRODUCTS:
             return str(self.entity_type) + " " + self.raw_data['name'][0]['value']
-        elif self.entity_type == self.ENTITY_TYPE_COSTUMER:
+        elif self.entity_type == RESOURCES_TYPE_COSTUMERS:
             return str(self.entity_type) + " " + self.raw_data['lastname']
         else:
             self.entity_type

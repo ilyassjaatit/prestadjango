@@ -5,6 +5,7 @@ from django.conf import settings
 
 from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 from apps.customers.models import Customer
+from .config import *
 
 
 class PsConnector:
@@ -58,24 +59,12 @@ class PsGetResources(PsConnector, ABC):
         return self._resources().json()[self.resources_name]
 
 
-class PsProduct(PsConnector):
+class PsProduct(PsGetResources):
     """
     Mange product prestashop
     """
-    URL_BASE = PsConnector._URL_BASE + 'products/'
-
-    def _products(self):
-        url = self.URL_BASE
-        return self._get(url)
-
-    def _product(self, ps_id):
-        url = self.URL_BASE + "" + str(ps_id)
-        return self._get(url)
-
-    def products(self, ps_id=None):
-        if not ps_id:
-            return self._products().json()['products']
-        return self._product(ps_id).json()['product']
+    resources_name = "products"
+    singular_name = "product"
 
 
 class PsCustomers(PsConnector):
@@ -181,11 +170,11 @@ def update_product(product):
 
 
 def save_product_sync(product):
-    prestashop_sync = PrestaSync.objects.filter(entity_type=PrestaSync.ENTITY_TYPE_PRODUCT,
+    prestashop_sync = PrestaSync.objects.filter(entity_type=RESOURCES_TYPE_PRODUCTS,
                                                 prestashop_entity_id=product["id"])
 
     if not prestashop_sync:
-        PrestaSync.objects.create(entity_type=PrestaSync.ENTITY_TYPE_PRODUCT,
+        PrestaSync.objects.create(entity_type=RESOURCES_TYPE_PRODUCTS,
                                   prestashop_entity_id=product["id"],
                                   raw_data=product
                                   )
