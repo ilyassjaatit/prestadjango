@@ -1,22 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from .config import *
 
 
 class PrestashopSynchronizer(models.Model):
     """Synchronize prestashop data with system"""
-    ENTITY_TYPE_PRODUCT = "PRODUCT"
-    ENTITY_TYPE_COSTUMER = "COSTUMER"
-    ENTITY_TYPE_ORDERS = "ORDERS"
-    ENTITY_TYPE_CHOICES = [
-        (ENTITY_TYPE_PRODUCT, _('product')),
-        (ENTITY_TYPE_COSTUMER, _('costumer')),
-    ]
-    STATUS_NOT_CREATED = "NOT_CREATED"
-    STATUS_CREATED = "CREATED"
-    STATUS_CHOICES = [
-        (STATUS_NOT_CREATED, _("Not created")),
-        (STATUS_CREATED, _("created")),
-    ]
+
     entity_id = models.IntegerField(
         help_text=_("Id entity"),
         editable=False,
@@ -31,7 +20,7 @@ class PrestashopSynchronizer(models.Model):
         max_length=20,
         editable=False,
         help_text=_("Type Entity"),
-        choices=ENTITY_TYPE_CHOICES,
+        choices=RESOURCES_TYPE_CHOICES,
     )
     raw_data = models.JSONField(editable=False)
     status = models.CharField(
@@ -45,9 +34,9 @@ class PrestashopSynchronizer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        if self.entity_type == self.ENTITY_TYPE_PRODUCT:
+        if self.entity_type == RESOURCES_TYPE_PRODUCTS:
             return str(self.entity_type) + " " + self.raw_data['name'][0]['value']
-        elif self.entity_type == self.ENTITY_TYPE_COSTUMER:
+        elif self.entity_type == RESOURCES_TYPE_COSTUMERS:
             return str(self.entity_type) + " " + self.raw_data['lastname']
         else:
             self.entity_type
