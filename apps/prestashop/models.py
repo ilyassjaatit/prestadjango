@@ -2,6 +2,13 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from .config import *
 
+RESOURCES_TYPE_CHOICES = [
+    (RESOURCES_TYPE_PRODUCTS, _('Products')),
+    (RESOURCES_TYPE_COSTUMERS, _('Costumers')),
+    (RESOURCES_TYPE_ORDERS, _('Orders')),
+    (RESOURCES_TYPE_CARDS, _('Cards')),
+]
+
 
 class PrestashopSynchronizer(models.Model):
     """Synchronize prestashop data with system"""

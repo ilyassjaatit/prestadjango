@@ -1,6 +1,6 @@
 from abc import ABC
+import time
 import requests
-
 from django.conf import settings
 
 from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
@@ -17,7 +17,7 @@ class PsConnector:
         self.request.auth = (self.PRESTASHOP_TOKEN, '')
         self.request.headers = {"Output-Format": "JSON"}
         self.sync_model = PrestaSync
-        self.items = None
+        self.items = []
 
     def _get(self, url):
         try:
@@ -34,66 +34,92 @@ class PsConnector:
 
 
 class PsGetResources(PsConnector, ABC):
-    resources_name: str
+    RESOURCES_TYPE: str
     singular_name: str
+    limit = True
+    next_limit = RESOURCES_LIMIT_ITEMS
+    sleep = RESOURCES_SLEEP
 
-    def _url(self, ps_id=None):
-        url = str(self.url_base()) + str(self.resources_name)
-        if ps_id:
-            return url + "/" + str(ps_id) + "/"
+    def __init__(self):
+        super().__init__()
+        self.resources_name = self.RESOURCES_TYPE.lower()
+
+    # TODO Improve url generation, can cause confusion
+    def _url(self, resources_id=None):
+        url = str(self.url_base()) + str(self.resources_name) + "/"
+        if resources_id:
+            return url + str(resources_id) + "/"
+
+        if self.limit:
+            prev = self.next_limit - RESOURCES_LIMIT_ITEMS
+            limit = str(prev) + "," + str(RESOURCES_LIMIT_ITEMS)
+            url += "?limit=" + str(limit)
+            return url
+
         return url
 
     def url(self, id_resource=None):
         return self._url(id_resource)
 
+    # TODO Use generator in the next iteration
     def _resources(self):
-        return self.get(self.url())
+        if not self.limit:
+            return self.get(self.url())
+        response = self.get(self.url()).json()
+        if response:
+            data_row = response[self.resources_name]
+        else:
+            return self.items
+        if data_row:
+            for item in data_row:
+                self.items.append(item)
+            self.next_limit = self.next_limit + RESOURCES_LIMIT_ITEMS
+            time.sleep(self.sleep)
+            self._resources()
+        else:
+            return self.items
 
     def _resource(self, id_resource):
-        print(self.url())
-        return self.get(self.url(id_resource))
+        response = self.get(self.url(id_resource)).json()
+        return response[self.singular_name]
 
     def resources(self, id_resource=None):
         if id_resource:
-            return self._resource(id_resource).json()[self.singular_name]
-        return self._resources().json()[self.resources_name]
+            return self._resource(id_resource)
+        return self._resources()
+
+    def _exist_resource(self, id_resources):
+        return self.sync_model \
+            .objects \
+            .filter(entity_type=self.RESOURCES_TYPE,
+                    prestashop_entity_id=id_resources)
+
+    def save_resources(self):
+        for item in self.items:
+            if not self._exist_resource(item['id']):
+                data = self.resources(item['id'])
+                time.sleep(self.sleep)
+                self.sync_model.objects.create(
+                    prestashop_entity_id=item['id'],
+                    entity_type=self.RESOURCES_TYPE,
+                    raw_data=data)
 
 
 class PsProduct(PsGetResources):
     """
     Mange product prestashop
     """
-    resources_name = "products"
+    RESOURCES_TYPE = RESOURCES_TYPE_PRODUCTS
     singular_name = "product"
 
 
 class PsCustomers(PsGetResources):
-    resources_name = RESOURCES_TYPE_COSTUMERS.lower()
+    RESOURCES_TYPE = RESOURCES_TYPE_COSTUMERS
     singular_name = "customer"
 
     def __init__(self):
         super().__init__()
         self.model = Customer
-
-    def _exist_item(self, id):
-        return self.sync_model \
-            .objects \
-            .filter(entity_type=RESOURCES_TYPE_COSTUMERS,
-                    prestashop_entity_id=id)
-
-    def save_items(self):
-        if not self.items:
-            self._customers()
-        for item in self.items:
-            if not self._exist_item(item['id']):
-                data = self.customers(item['id'])
-                self.sync_model.objects.create(
-                    prestashop_entity_id=item['id'],
-                    entity_type=RESOURCES_TYPE_COSTUMERS,
-                    raw_data=data
-                )
-            else:
-                print(item)
 
     @staticmethod
     def save_customers():
@@ -134,42 +160,3 @@ class PsCards(PsGetResources):
 class PsOrders(PsGetResources):
     resources_name = RESOURCES_TYPE_ORDERS.lower()
     singular_name = 'order'
-
-    def _exist_item(self, id):
-        return self.sync_model \
-            .objects \
-            .filter(entity_type=RESOURCES_TYPE_ORDERS,
-                    prestashop_entity_id=id)
-
-    def save_items(self):
-        if not self.items:
-            self.items = self.resources()
-        for item in self.items:
-            if not self._exist_item(item['id']):
-                data = self.resources(item['id'])
-                import time
-                time.sleep(.3)
-                self.sync_model.objects.create(
-                    prestashop_entity_id=item['id'],
-                    entity_type=RESOURCES_TYPE_ORDERS,
-                    raw_data=data
-                )
-            else:
-                print(item)
-
-
-def update_product(product):
-    return f"update product {product['id']}"
-
-
-def save_product_sync(product):
-    prestashop_sync = PrestaSync.objects.filter(entity_type=RESOURCES_TYPE_PRODUCTS,
-                                                prestashop_entity_id=product["id"])
-
-    if not prestashop_sync:
-        PrestaSync.objects.create(entity_type=RESOURCES_TYPE_PRODUCTS,
-                                  prestashop_entity_id=product["id"],
-                                  raw_data=product
-                                  )
-    else:
-        update_product(product)
