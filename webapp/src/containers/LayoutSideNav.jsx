@@ -22,7 +22,7 @@ const LayoutSideNav = () => {
                 <div className='sb-nav-link-icon'><i className='fas fa-columns' /></div>
                 Products
                 <div className='sb-sidenav-collapse-arrow'><i className='fas fa-angle-down' />
-                                    </div>
+                </div>
               </a>
               <div
                 className='collapse' id='collapseLayouts' aria-labelledby='headingOne'

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Layout from '../containers/Layout'
 import AppContext from '../context/AppContext'

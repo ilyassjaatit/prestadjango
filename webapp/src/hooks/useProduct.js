@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 async function _prepareGetProduct (url) {
-  const auth_token = localStorage.getItem('auth_token')
+  const authToken = window.localStorage.getItem('auth_token')
   const config = {
     method: 'get',
     url: url,
     headers: {
-      Authorization: 'Token ' + auth_token
+      Authorization: 'Token ' + authToken
     }
   }
   return axios(config)

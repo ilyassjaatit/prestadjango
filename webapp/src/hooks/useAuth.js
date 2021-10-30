@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const AUTH_URL = process.env.REACT_APP_BASEURL + 'auth-token/'
@@ -13,9 +12,9 @@ async function auth (data, setHttpError, addUser, addAuthToken) {
   ).then(response => {
     const token = response.data.token
     addAuthToken(token)
-    localStorage.setItem('auth_token', token)
+    window.localStorage.setItem('auth_token', token)
     getMe(token).then((response) => {
-      sessionStorage.setItem('user', JSON.stringify(response.data))
+      window.sessionStorage.setItem('user', JSON.stringify(response.data))
       addUser(response.data)
     })
   }
@@ -42,7 +41,7 @@ async function getMe (token) {
       Authorization: 'Token ' + token
     }
   }
-  return await axios(config)
+  return axios(config)
 }
 
 export { auth }

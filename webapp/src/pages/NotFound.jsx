@@ -16,7 +16,7 @@ const NotFound = () => {
                   <Link to='/'>
                     <i className='fas fa-arrow-left me-1' />
                     Return to Dashboard
-                                  </Link>
+                  </Link>
                 </div>
               </div>
             </div>

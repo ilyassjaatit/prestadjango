@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
 import { getProductDetail } from '../../hooks/useProduct'
-import NotFound from '../../pages/NotFound'
 
 const ProductDetail = () => {
   const { productId } = useParams()
