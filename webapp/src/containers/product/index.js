@@ -1,4 +1,4 @@
-import ProductDetail from "./ProductDetail";
-import ProductList from "./ProductList";
+import ProductDetail from './ProductDetail'
+import ProductList from './ProductList'
 
-export {ProductDetail, ProductList}
+export { ProductDetail, ProductList }
