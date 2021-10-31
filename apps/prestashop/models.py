@@ -6,7 +6,14 @@ RESOURCES_TYPE_CHOICES = [
     (RESOURCES_TYPE_PRODUCTS, _('Products')),
     (RESOURCES_TYPE_COSTUMERS, _('Costumers')),
     (RESOURCES_TYPE_ORDERS, _('Orders')),
-    (RESOURCES_TYPE_CARDS, _('Cards')),
+    (RESOURCES_TYPE_CARTS, _('Carts')),
+    (RESOURCES_TYPE_CATEGORIES, _('Categories')),
+    (RESOURCES_TYPE_TAGS, _('Tags')),
+]
+
+STATUS_CHOICES = [
+    (STATUS_NOT_CREATED, _("Not created")),
+    (STATUS_CREATED, _("created")),
 ]
 
 
@@ -46,7 +53,7 @@ class PrestashopSynchronizer(models.Model):
         elif self.entity_type == RESOURCES_TYPE_COSTUMERS:
             return str(self.entity_type) + " " + self.raw_data['lastname']
         else:
-            self.entity_type
+            return self.entity_type
 
     class Meta:
         constraints = [

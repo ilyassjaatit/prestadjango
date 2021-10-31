@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 from apps.users.views import UserViewSet
 from apps.orders.views import OrderViewSet
 from apps.customers.views import CustomerViewSet
-from apps.products.views import ProductViewSet
+from apps.products.views import ProductViewSet, ProductImageViewSet, CategoryViewSet, TagViewSet
 
 if settings.DEBUG:
     router = DefaultRouter()
@@ -13,6 +13,8 @@ else:
 
 router.register("users", UserViewSet)
 router.register("products", ProductViewSet)
+router.register("categories", CategoryViewSet)
+router.register("tags", TagViewSet)
 router.register("customers", CustomerViewSet)
 router.register("orders", OrderViewSet)
 

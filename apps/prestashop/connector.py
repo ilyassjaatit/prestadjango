@@ -153,10 +153,22 @@ class PsCustomers(PsGetResources):
 
 
 class PsCards(PsGetResources):
-    resources_name = RESOURCES_TYPE_CARDS.lower()
-    singular_name = "card"
+    RESOURCES_TYPE = RESOURCES_TYPE_CARTS
+    singular_name = "cart"
+    limit = 3000
 
 
 class PsOrders(PsGetResources):
-    resources_name = RESOURCES_TYPE_ORDERS.lower()
+    RESOURCES_TYPE = RESOURCES_TYPE_ORDERS
     singular_name = 'order'
+    limit = 1000
+
+
+class PsCategories(PsGetResources):
+    RESOURCES_TYPE = RESOURCES_TYPE_CATEGORIES
+    singular_name = "category"
+
+
+class PsTags(PsGetResources):
+    RESOURCES_TYPE = RESOURCES_TYPE_TAGS
+    singular_name = "tag"
