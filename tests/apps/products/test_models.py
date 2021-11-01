@@ -1,7 +1,11 @@
 import pytest
 from tests.factories import ProductFactory, TagFactory, CategoryFactory, ProductImageFactory
 
+from apps.products.models import ProductContent
+
 pytestmark = pytest.mark.django_db
+
+NUM_OF_ITEMS = 10
 
 
 def test_create_product():
@@ -14,6 +18,11 @@ def test_create_product_image():
     name = "Product image name 1"
     image = ProductImageFactory(name=name)
     assert name == image.name
+
+
+def test_create_product_content(create_products_content):
+    create_products_content(NUM_OF_ITEMS)
+    assert ProductContent.objects.count() == NUM_OF_ITEMS
 
 
 def test_create_tag(create_products):

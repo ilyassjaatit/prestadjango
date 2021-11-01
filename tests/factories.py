@@ -4,7 +4,7 @@ import factory
 from faker import Faker
 from apps.customers.models import Customer
 from apps.orders.models import Order
-from apps.products.models import Product, ProductImage, Category, Tag
+from apps.products.models import Product, ProductImage, Category, Tag, ProductContent
 from apps.prestashop.models import PrestashopSynchronizer
 
 fake = Faker()
@@ -48,9 +48,17 @@ class CustomerFactory(factory.django.DjangoModelFactory):
 
 class ProductFactory(factory.django.DjangoModelFactory):
     name = fake.bothify("Product name ????-########")
+    created_at = datetime.now()
 
     class Meta:
         model = Product
+
+
+class ProductContentFactory(factory.django.DjangoModelFactory):
+    product = factory.SubFactory(ProductFactory)
+
+    class Meta:
+        model = ProductContent
 
 
 class ProductImageFactory(factory.django.DjangoModelFactory):
