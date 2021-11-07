@@ -5,6 +5,7 @@ import AppContext from '../context/AppContext'
 import useInitialState from '../hooks/useInitialState'
 import Home from '@pages/Home'
 import Product from '@pages/Product'
+import Customer from '../pages/Customer'
 import NotFound from '@pages/NotFound'
 import Login from '@pages/Login'
 import '../scss/styles.scss'
@@ -24,6 +25,7 @@ const App = () => {
         <Layout>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route path='/customers' component={Customer} />
             <Route path='/products' component={Product} />
             <Route path='*' component={NotFound} />
           </Switch>
