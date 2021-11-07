@@ -13,6 +13,12 @@ const LayoutSideNav = () => {
                 <div className='sb-nav-link-icon'><i className='fas fa-tachometer-alt' /></div>
                 Dashboard
               </Link>
+              <Link className='nav-link' to='/customers'>
+                <div className='sb-nav-link-icon'>
+                  <i className='fas fa-table' />
+                </div>
+                Customers
+              </Link>
               <div className='sb-sidenav-menu-heading'>Catalog</div>
               <a
                 className='nav-link collapsed' href='#' data-bs-toggle='collapse'

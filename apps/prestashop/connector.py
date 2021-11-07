@@ -1,5 +1,6 @@
 from abc import ABC
 import time
+
 import requests
 from django.conf import settings
 
@@ -116,6 +117,7 @@ class PsProduct(PsGetResources):
 class PsCustomers(PsGetResources):
     RESOURCES_TYPE = RESOURCES_TYPE_COSTUMERS
     singular_name = "customer"
+    limit = 1000
 
     def __init__(self):
         super().__init__()
@@ -130,8 +132,8 @@ class PsCustomers(PsGetResources):
 
         ps_customers = PrestaSync. \
             objects. \
-            filter(status=PrestaSync.STATUS_NOT_CREATED,
-                   entity_type=PrestaSync.ENTITY_TYPE_COSTUMER
+            filter(status=STATUS_NOT_CREATED,
+                   entity_type=RESOURCES_TYPE_COSTUMERS
                    )
         for ps in ps_customers:
             raw_data = ps.raw_data
@@ -144,12 +146,12 @@ class PsCustomers(PsGetResources):
             )
             try:
                 customer.save()
+                print(customer.email)
             except:
-                print(raw_data)
-                break
+                print(raw_data['email'])
 
             if customer.pk:
-                PrestaSync.objects.filter(pk=ps.pk).update(status=PrestaSync.STATUS_CREATED, entity_id=customer.pk)
+                PrestaSync.objects.filter(pk=ps.pk).update(status=STATUS_CREATED, entity_id=customer.pk)
 
 
 class PsCards(PsGetResources):
