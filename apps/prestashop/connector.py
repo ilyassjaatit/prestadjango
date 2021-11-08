@@ -1,11 +1,11 @@
-from abc import ABC
 import time
+from abc import ABC
 
 import requests
 from django.conf import settings
 
-from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 from apps.customers.models import Customer
+from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 from .config import *
 
 
@@ -164,6 +164,23 @@ class PsOrders(PsGetResources):
     RESOURCES_TYPE = RESOURCES_TYPE_ORDERS
     singular_name = 'order'
     limit = 1000
+
+
+class PsAddresses(PsGetResources):
+    RESOURCES_TYPE = RESOURCES_TYPE_ADDRESSES
+    singular_name = 'address'
+    limit = 1000
+
+
+class PsZones(PsGetResources):
+    RESOURCES_TYPE = RESOURCES_TYPE_ZONES
+    singular_name = "zone"
+
+
+class PsCountry(PsGetResources):
+    RESOURCES_TYPE = RESOURCES_TYPE_COUNTRIES
+    singular_name = 'country'
+    limit = 100
 
 
 class PsCategories(PsGetResources):
