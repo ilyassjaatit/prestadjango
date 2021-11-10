@@ -7,7 +7,8 @@ from tests.factories import \
     TagFactory, \
     UserFactory, \
     CustomerFactory, \
-    OrderFactory
+    OrderFactory, \
+    OrderItemFactory
 
 # Register factories to pytest global namespace.
 register(UserFactory)
@@ -17,6 +18,7 @@ register(TagFactory)
 register(CategoryFactory)
 register(CustomerFactory)
 register(OrderFactory)
+register(OrderItemFactory)
 
 
 @pytest.fixture()
@@ -55,6 +57,14 @@ def create_orders(db, order_factory):
         return order_factory.simple_generate_batch(create=True, size=size)
 
     return _create_orders
+
+
+@pytest.fixture
+def create_order_items(db, order_factory):
+    def _create_order_items(size=10):
+        return order_factory.simple_generate_batch(create=True, size=size)
+
+    return _create_order_items
 
 
 @pytest.fixture

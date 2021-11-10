@@ -40,6 +40,7 @@ class PsGetResources(PsConnector, ABC):
     limit = True
     next_limit = RESOURCES_LIMIT_ITEMS
     sleep = RESOURCES_SLEEP
+    limit_items = RESOURCES_LIMIT_ITEMS
 
     def __init__(self):
         super().__init__()
@@ -52,8 +53,8 @@ class PsGetResources(PsConnector, ABC):
             return url + str(resources_id) + "/"
 
         if self.limit:
-            prev = self.next_limit - RESOURCES_LIMIT_ITEMS
-            limit = str(prev) + "," + str(RESOURCES_LIMIT_ITEMS)
+            prev = self.next_limit - self.limit_items
+            limit = str(prev) + "," + str(self.limit_items)
             url += "?limit=" + str(limit)
             return url
 
@@ -163,7 +164,11 @@ class PsCards(PsGetResources):
 class PsOrders(PsGetResources):
     RESOURCES_TYPE = RESOURCES_TYPE_ORDERS
     singular_name = 'order'
-    limit = 1000
+
+
+class PsOrderDetails(PsGetResources):
+    RESOURCES_TYPE = RESOURCES_TYPE_ORDER_DETAILS
+    singular_name = 'order_detail'
 
 
 class PsAddresses(PsGetResources):
@@ -180,7 +185,6 @@ class PsZones(PsGetResources):
 class PsCountry(PsGetResources):
     RESOURCES_TYPE = RESOURCES_TYPE_COUNTRIES
     singular_name = 'country'
-    limit = 100
 
 
 class PsCategories(PsGetResources):

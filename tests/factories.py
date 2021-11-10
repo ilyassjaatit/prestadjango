@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 import factory
 from faker import Faker
 from apps.customers.models import Customer
-from apps.orders.models import Order
+from apps.orders.models import Order, OrderItem
 from apps.products.models import Product, ProductImage, Category, Tag, ProductContent
 from apps.prestashop.models import PrestashopSynchronizer
 
@@ -116,3 +116,10 @@ class OrderFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Order
+
+
+class OrderItemFactory(factory.django.DjangoModelFactory):
+    order = factory.SubFactory(OrderFactory)
+
+    class Meta:
+        model = OrderItem
