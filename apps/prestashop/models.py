@@ -6,6 +6,7 @@ RESOURCES_TYPE_CHOICES = [
     (RESOURCES_TYPE_PRODUCTS, _('Products')),
     (RESOURCES_TYPE_COSTUMERS, _('Costumers')),
     (RESOURCES_TYPE_ORDERS, _('Orders')),
+    (RESOURCES_TYPE_ORDER_DETAILS, _('Order Details')),
     (RESOURCES_TYPE_CARTS, _('Carts')),
     (RESOURCES_TYPE_CATEGORIES, _('Categories')),
     (RESOURCES_TYPE_TAGS, _('Tags')),
