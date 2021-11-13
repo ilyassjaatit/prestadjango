@@ -1,5 +1,9 @@
+invoke==1.6.0
 requests==2.26.0
 markdown==3.3.4
+Pillow==8.4.0
+psycopg2-binary==2.9.2
+Werkzeug==2.0.2
 # django
 Django==3.2.8
 django-environ==0.7.0
