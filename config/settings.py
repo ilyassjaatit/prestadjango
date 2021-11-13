@@ -163,3 +163,8 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
+
+# Celery settings
+CELERY_BROKER_PROTOCOL = env("CELERY_BROKER_PROTOCOL", default="amqp")
+CELERY_BROKER_HOST = env("CELERY_BROKER_HOST", default="rabbitmq")
+CELERY_BROKER_PORT = env("CELERY_BROKER_PORT", default=5672)
