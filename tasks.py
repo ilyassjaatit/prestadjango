@@ -24,3 +24,10 @@ def runserver(ctx, host="0.0.0.0", port=8000, debug=False):
 def migrate(ctx):
     ctx.run("python manage.py migrate")
 
+
+@task
+def celery_queues(ctx, log_level="DEBUG"):
+    command = f"celery -A config.celery worker -l {log_level} "
+    print(command)
+    ctx.run(command, pty=True)
+

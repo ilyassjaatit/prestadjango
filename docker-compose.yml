@@ -1,8 +1,9 @@
 version: '3'
 services:
-  backend:
+  backend: &backend
     build:
       context: .
+    image: backend
     user: root
     depends_on:
       - postgresql
@@ -27,5 +28,23 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
+  rabbitmq:
+    image: 'rabbitmq:3.9.9-alpine'
+    ports:
+      - 5672:5672
+  celeryworker:
+    <<: *backend
+    image: celery:local
+    ports: [ ]
+    depends_on:
+      - postgresql
+      - rabbitmq
+    entrypoint:
+      - invoke
+      - wait-for
+      - rabbitmq:5672
+      - wait-for
+      - postgresql:5432
+      - celery-queues
 volumes:
   postgres_data:
