@@ -38,6 +38,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_celery_beat',
 ]
 
 # Local apps
@@ -165,6 +166,9 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # Celery settings
+CELERY_TIMEZONE = TIME_ZONE
 CELERY_BROKER_PROTOCOL = env("CELERY_BROKER_PROTOCOL", default="amqp")
 CELERY_BROKER_HOST = env("CELERY_BROKER_HOST", default="rabbitmq")
 CELERY_BROKER_PORT = env("CELERY_BROKER_PORT", default=5672)
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_ACCEPT_CONTENT = ["json"]

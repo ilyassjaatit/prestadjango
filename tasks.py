@@ -31,3 +31,16 @@ def celery_queues(ctx, log_level="DEBUG"):
     print(command)
     ctx.run(command, pty=True)
 
+
+@task
+def celery_beat(ctx, log_level="DEBUG"):
+    command = f"celery -A config.celery beat -l {log_level} "
+    print(command)
+    ctx.run(command, pty=True)
+
+
+@task
+def flower(ctx, ):
+    command = f"celery -A config.celery flower  --broker=amqp://guest:guest@localhost:5672// "
+    print(command)
+    ctx.run(command, pty=True)
