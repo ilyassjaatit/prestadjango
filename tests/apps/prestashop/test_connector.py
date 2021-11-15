@@ -1,11 +1,10 @@
 import pytest
-from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 from apps.prestashop.connector import PsGetResources
 
 pytestmark = pytest.mark.django_db
 
 
-def test_ps_get_resources(singular_name=None):
+def test_ps_get_resources():
     class ResourcesTest(PsGetResources):
         _URL_BASE = "http://localhost.com/"
         RESOURCES_TYPE = "TEST_RESOURCES"

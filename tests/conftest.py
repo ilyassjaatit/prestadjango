@@ -8,7 +8,8 @@ from tests.factories import \
     UserFactory, \
     CustomerFactory, \
     OrderFactory, \
-    OrderItemFactory
+    OrderItemFactory, \
+    PrestashopConfigFactory
 
 # Register factories to pytest global namespace.
 register(UserFactory)
@@ -19,12 +20,19 @@ register(CategoryFactory)
 register(CustomerFactory)
 register(OrderFactory)
 register(OrderItemFactory)
+register(PrestashopConfigFactory)
 
 
 @pytest.fixture()
 def create_user():
     user = UserFactory(username="name")
     yield user
+
+
+@pytest.fixture()
+def create_prestashop_config():
+    config = PrestashopConfigFactory()
+    yield config
 
 
 @pytest.fixture

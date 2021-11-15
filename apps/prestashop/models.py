@@ -31,7 +31,7 @@ class PrestashopSynchronizer(models.Model):
         help_text=_("Id prestashop_entity_id"),
         editable=False
     )
-    entity_type = models.CharField(
+    resources_type = models.CharField(
         max_length=20,
         editable=False,
         help_text=_("Type Entity"),
@@ -61,3 +61,26 @@ class PrestashopSynchronizer(models.Model):
             models.UniqueConstraint(fields=['entity_id', 'prestashop_entity_id'],
                                     name="prestashop_synchronizer_constraint")
         ]
+
+
+class PrestashopConfig(models.Model):
+    """
+    Configuration of how to map the prestashop resources in the system
+    """
+    resources_type = models.CharField(
+        max_length=20,
+        editable=False,
+        unique=True,
+        help_text=_("Resources Type"),
+        choices=RESOURCES_TYPE_CHOICES,
+    )
+    config = models.JSONField(default={
+        "data_to_save": [],
+    })
+    limit_start = models.IntegerField(
+        help_text=_("Last limit pagination"),
+        editable=False,
+        default=0
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
