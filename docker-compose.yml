@@ -52,6 +52,7 @@ services:
     depends_on:
       - postgresql
       - rabbitmq
+      - celeryworker
     ports: [ ]
     entrypoint:
       - invoke

@@ -5,7 +5,8 @@ from faker import Faker
 from apps.customers.models import Customer
 from apps.orders.models import Order, OrderItem
 from apps.products.models import Product, ProductImage, Category, Tag, ProductContent
-from apps.prestashop.models import PrestashopSynchronizer
+from apps.prestashop.models import PrestashopSynchronizer, PrestashopConfig
+from apps.prestashop.config import RESOURCES_TYPE_ORDERS
 
 fake = Faker()
 
@@ -108,6 +109,13 @@ class PrestashopSynchronizerFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = PrestashopSynchronizer
+
+
+class PrestashopConfigFactory(factory.django.DjangoModelFactory):
+    resources_type = RESOURCES_TYPE_ORDERS
+
+    class Meta:
+        model = PrestashopConfig
 
 
 class OrderFactory(factory.django.DjangoModelFactory):
