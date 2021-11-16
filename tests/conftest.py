@@ -1,15 +1,16 @@
 import pytest
 from pytest_factoryboy import register
-from tests.factories import \
-    ProductFactory, \
-    ProductContentFactory, \
-    CategoryFactory, \
-    TagFactory, \
-    UserFactory, \
-    CustomerFactory, \
-    OrderFactory, \
-    OrderItemFactory, \
-    PrestashopConfigFactory
+from tests.factories import (
+    ProductFactory,
+    ProductContentFactory,
+    CategoryFactory,
+    TagFactory,
+    UserFactory,
+    CustomerFactory,
+    OrderFactory,
+    OrderItemFactory,
+    PrestashopConfigFactory,
+)
 
 # Register factories to pytest global namespace.
 register(UserFactory)

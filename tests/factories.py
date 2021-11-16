@@ -40,8 +40,8 @@ class UserFactory(factory.django.DjangoModelFactory):
 class CustomerFactory(factory.django.DjangoModelFactory):
     first_name = fake.bothify("first_name ????-########")
     last_name = fake.bothify("last_name ????-########")
-    email = factory.LazyAttributeSequence(lambda o, n: '%s@s%d.example.com' % (o, n))
-    created_at = '2021-09-19 15:50:44'
+    email = factory.LazyAttributeSequence(lambda o, n: "%s@s%d.example.com" % (o, n))
+    created_at = "2021-09-19 15:50:44"
 
     class Meta:
         model = Customer
@@ -100,12 +100,7 @@ class CategoryFactory(factory.django.DjangoModelFactory):
 class PrestashopSynchronizerFactory(factory.django.DjangoModelFactory):
     entity_id = 1
     prestashop_entity_id = 1
-    raw_data = {
-        'id': 99999999,
-        'name': [
-            {'id': '1', 'value': 'product name'}
-        ]
-    }
+    raw_data = {"id": 99999999, "name": [{"id": "1", "value": "product name"}]}
 
     class Meta:
         model = PrestashopSynchronizer

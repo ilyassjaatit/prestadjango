@@ -1,5 +1,10 @@
 import pytest
-from tests.factories import ProductFactory, TagFactory, CategoryFactory, ProductImageFactory
+from tests.factories import (
+    ProductFactory,
+    TagFactory,
+    CategoryFactory,
+    ProductImageFactory,
+)
 
 from apps.products.models import ProductContent
 

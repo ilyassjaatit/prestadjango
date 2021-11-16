@@ -12,7 +12,7 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
 
 
 class ProductContent(models.Model):
@@ -23,28 +23,13 @@ class ProductContent(models.Model):
         help_text=_("Meta title"),
     )
     meta_description = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        help_text=_("Meta description")
+        max_length=255, blank=True, null=True, help_text=_("Meta description")
     )
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        help_text=_("Title ")
-    )
+    title = models.CharField(max_length=255, blank=True, null=True, help_text=_("Title "))
     short_description = models.CharField(
-        max_length=455,
-        blank=True,
-        null=True,
-        help_text=_("Short description")
+        max_length=455, blank=True, null=True, help_text=_("Short description")
     )
-    description = models.TextField(
-        blank=True,
-        null=True,
-        help_text=_("Description")
-    )
+    description = models.TextField(blank=True, null=True, help_text=_("Description"))
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -56,7 +41,7 @@ class ProductContent(models.Model):
 class ProductImage(models.Model):
     name = models.CharField(max_length=255)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='product/')
+    image = models.ImageField(upload_to="product/")
     default = models.BooleanField(default=False)
 
 

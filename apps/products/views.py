@@ -1,7 +1,12 @@
 from rest_framework import permissions, viewsets, mixins
 from .models import Product, ProductImage, Category, Tag
 
-from .serializers import ProductSerializer, ProductImageSerializer, CategorySerializer, TagSerializer
+from .serializers import (
+    ProductSerializer,
+    ProductImageSerializer,
+    CategorySerializer,
+    TagSerializer,
+)
 
 
 class ProductImageViewSet(viewsets.ReadOnlyModelViewSet):

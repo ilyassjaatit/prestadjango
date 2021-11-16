@@ -33,10 +33,9 @@ class ProductSerializer(serializers.ModelSerializer):
         except:
             return {}
 
-
     class Meta:
         model = Product
-        fields = ['id', 'name', 'sku', 'content', 'image_default']
+        fields = ["id", "name", "sku", "content", "image_default"]
 
 
 class TagSerializer(serializers.ModelSerializer):
