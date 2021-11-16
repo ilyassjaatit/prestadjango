@@ -1,9 +1,11 @@
 import json
 
 from django.urls import reverse
+
+from rest_framework import status
+
 from apps.customers.models import Customer
 from apps.customers.views import CustomerViewSet
-from rest_framework import status
 
 NUM_OF_PRODUCTS = 30
 

@@ -1,10 +1,10 @@
-from rest_framework import permissions, viewsets, mixins
-from .models import Product, ProductImage, Category, Tag
+from rest_framework import mixins, permissions, viewsets
 
+from .models import Category, Product, ProductImage, Tag
 from .serializers import (
-    ProductSerializer,
-    ProductImageSerializer,
     CategorySerializer,
+    ProductImageSerializer,
+    ProductSerializer,
     TagSerializer,
 )
 

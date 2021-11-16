@@ -17,3 +17,10 @@ force-exclude = '''
 )/
 | ./*/migrations
 '''
+
+[tool.isort]
+profile = "black"
+default_section = 'THIRDPARTY'
+known_django = 'django'
+sections = 'FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
+skip='migrations'

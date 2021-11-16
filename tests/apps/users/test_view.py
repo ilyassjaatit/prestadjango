@@ -1,4 +1,5 @@
 import pytest
+
 from apps.users.views import UserViewSet
 from tests.factories import UserFactory
 

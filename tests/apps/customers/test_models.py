@@ -1,4 +1,5 @@
 import pytest
+
 from apps.customers.models import Customer
 
 pytestmark = pytest.mark.django_db

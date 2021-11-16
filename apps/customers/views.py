@@ -1,6 +1,6 @@
 from rest_framework import permissions, viewsets
-from .models import Customer
 
+from .models import Customer
 from .serializers import CustomerSerializer
 
 

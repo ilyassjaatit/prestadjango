@@ -3,6 +3,7 @@ Django settings for prestadjango project.
 """
 import os
 from pathlib import Path
+
 import environ
 
 env = environ.Env()

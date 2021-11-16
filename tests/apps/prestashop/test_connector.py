@@ -1,4 +1,5 @@
 import pytest
+
 from apps.prestashop.connector import PsGetResources
 
 pytestmark = pytest.mark.django_db

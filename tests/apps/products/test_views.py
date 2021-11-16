@@ -1,10 +1,12 @@
-import pytest
 import json
 
 from django.urls import reverse
-from apps.products.models import Product, Category, Tag
-from apps.products.views import ProductViewSet, CategoryViewSet, TagViewSet
+
+import pytest
 from rest_framework import status
+
+from apps.products.models import Category, Product, Tag
+from apps.products.views import CategoryViewSet, ProductViewSet, TagViewSet
 
 NUM_OF_ITEMS = 30
 

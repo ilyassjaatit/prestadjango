@@ -1,11 +1,13 @@
 import time
 from abc import ABC
 
-import requests
 from django.conf import settings
+
+import requests
 
 from apps.customers.models import Customer
 from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
+
 from .config import *
 
 

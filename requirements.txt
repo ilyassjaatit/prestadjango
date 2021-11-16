@@ -25,3 +25,4 @@ pytest-factoryboy==2.1.0
 
 # code quality
 black==21.10b0
+isort==5.10.1

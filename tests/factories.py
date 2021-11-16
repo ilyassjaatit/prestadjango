@@ -1,12 +1,15 @@
 from datetime import datetime
+
 from django.contrib.auth import get_user_model
+
 import factory
 from faker import Faker
+
 from apps.customers.models import Customer
 from apps.orders.models import Order, OrderItem
-from apps.products.models import Product, ProductImage, Category, Tag, ProductContent
-from apps.prestashop.models import PrestashopSynchronizer, PrestashopConfig
 from apps.prestashop.config import RESOURCES_TYPE_ORDERS
+from apps.prestashop.models import PrestashopConfig, PrestashopSynchronizer
+from apps.products.models import Category, Product, ProductContent, ProductImage, Tag
 
 fake = Faker()
 

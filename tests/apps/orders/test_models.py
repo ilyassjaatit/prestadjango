@@ -1,4 +1,5 @@
 import pytest
+
 from apps.orders.models import Order
 
 pytestmark = pytest.mark.django_db
