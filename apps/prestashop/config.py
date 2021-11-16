@@ -1,5 +1,3 @@
-from django.utils.translation import gettext_lazy as _
-
 RESOURCES_TYPE_PRODUCTS = "PRODUCTS"
 RESOURCES_TYPE_COSTUMERS = "CUSTOMERS"
 RESOURCES_TYPE_ORDERS = "ORDERS"

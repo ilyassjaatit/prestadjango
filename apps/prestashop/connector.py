@@ -2,13 +2,29 @@ import time
 from abc import ABC
 
 from django.conf import settings
+from django.db import Error as django_error
 
 import requests
 
 from apps.customers.models import Customer
 from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 
-from .config import *
+from .config import (
+    RESOURCES_LIMIT_ITEMS,
+    RESOURCES_SLEEP,
+    RESOURCES_TYPE_ADDRESSES,
+    RESOURCES_TYPE_CARTS,
+    RESOURCES_TYPE_CATEGORIES,
+    RESOURCES_TYPE_COSTUMERS,
+    RESOURCES_TYPE_COUNTRIES,
+    RESOURCES_TYPE_ORDER_DETAILS,
+    RESOURCES_TYPE_ORDERS,
+    RESOURCES_TYPE_PRODUCTS,
+    RESOURCES_TYPE_TAGS,
+    RESOURCES_TYPE_ZONES,
+    STATUS_CREATED,
+    STATUS_NOT_CREATED,
+)
 
 
 class PsConnector:
@@ -149,7 +165,7 @@ class PsCustomers(PsGetResources):
             try:
                 customer.save()
                 print(customer.email)
-            except:
+            except django_error:
                 print(raw_data["email"])
 
             if customer.pk:

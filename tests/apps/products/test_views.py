@@ -2,7 +2,6 @@ import json
 
 from django.urls import reverse
 
-import pytest
 from rest_framework import status
 
 from apps.products.models import Category, Product, Tag

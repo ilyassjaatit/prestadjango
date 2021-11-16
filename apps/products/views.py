@@ -1,4 +1,4 @@
-from rest_framework import mixins, permissions, viewsets
+from rest_framework import permissions, viewsets
 
 from .models import Category, Product, ProductImage, Tag
 from .serializers import (

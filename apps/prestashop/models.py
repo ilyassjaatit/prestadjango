@@ -1,7 +1,17 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .config import *
+from .config import (
+    RESOURCES_TYPE_CARTS,
+    RESOURCES_TYPE_CATEGORIES,
+    RESOURCES_TYPE_COSTUMERS,
+    RESOURCES_TYPE_ORDER_DETAILS,
+    RESOURCES_TYPE_ORDERS,
+    RESOURCES_TYPE_PRODUCTS,
+    RESOURCES_TYPE_TAGS,
+    STATUS_CREATED,
+    STATUS_NOT_CREATED,
+)
 
 RESOURCES_TYPE_CHOICES = [
     (RESOURCES_TYPE_PRODUCTS, _("Products")),
