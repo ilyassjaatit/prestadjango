@@ -1,7 +1,12 @@
 import pytest
-from tests.factories import ProductFactory, TagFactory, CategoryFactory, ProductImageFactory
 
 from apps.products.models import ProductContent
+from tests.factories import (
+    CategoryFactory,
+    ProductFactory,
+    ProductImageFactory,
+    TagFactory,
+)
 
 pytestmark = pytest.mark.django_db
 

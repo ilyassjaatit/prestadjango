@@ -40,7 +40,7 @@ def celery_beat(ctx, log_level="DEBUG"):
 
 
 @task
-def flower(ctx, ):
-    command = f"celery -A config.celery flower  --broker=amqp://guest:guest@localhost:5672// "
+def flower(ctx):
+    command = "celery -A config.celery flower  --broker=amqp://guest:guest@localhost:5672// "
     print(command)
     ctx.run(command, pty=True)

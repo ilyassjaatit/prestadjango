@@ -1,7 +1,7 @@
 import pytest
-from tests.factories import PrestashopSynchronizerFactory as PresSyncFactory
 
 from apps.prestashop.models import PrestashopConfig
+from tests.factories import PrestashopSynchronizerFactory as PresSyncFactory
 
 pytestmark = pytest.mark.django_db
 NUM_OF_ITEMS = 10

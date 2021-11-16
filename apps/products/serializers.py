@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Product, ProductImage, Tag, Category, ProductContent
+
+from .models import Category, Product, ProductContent, ProductImage, Tag
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -22,7 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
         try:
             data_serializers = ProductContentSerializer(obj.productcontent)
             return data_serializers.data
-        except:
+        except ProductContentSerializer.DoesNotExist:
             return {}
 
     def get_image_default(self, obj):
@@ -30,13 +31,12 @@ class ProductSerializer(serializers.ModelSerializer):
             image = ProductImage.objects.get(product__pk=obj.pk, default=True)
             data_serializers = ProductImageSerializer(image)
             return data_serializers.data
-        except:
+        except ProductImage.DoesNotExist:
             return {}
-
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'sku', 'content', 'image_default']
+        fields = ["id", "name", "sku", "content", "image_default"]
 
 
 class TagSerializer(serializers.ModelSerializer):
