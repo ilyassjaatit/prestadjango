@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from apps.prestashop.models import PrestashopConfig
 from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 
 
@@ -15,3 +16,4 @@ class PrestashopSynchronizerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PrestaSync, PrestashopSynchronizerAdmin)
+admin.site.register(PrestashopConfig)

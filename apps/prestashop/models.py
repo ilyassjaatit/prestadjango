@@ -54,12 +54,12 @@ class PrestashopSynchronizer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        if self.entity_type == RESOURCES_TYPE_PRODUCTS:
-            return str(self.entity_type) + " " + self.raw_data["name"][0]["value"]
-        elif self.entity_type == RESOURCES_TYPE_COSTUMERS:
-            return str(self.entity_type) + " " + self.raw_data["lastname"]
+        if self.resources_type == RESOURCES_TYPE_PRODUCTS:
+            return str(self.resources_type) + " " + self.raw_data["name"][0]["value"]
+        elif self.resources_type == RESOURCES_TYPE_COSTUMERS:
+            return str(self.resources_type) + " " + self.raw_data["lastname"]
         else:
-            return self.entity_type
+            return self.resources_type
 
     class Meta:
         constraints = [
@@ -82,12 +82,9 @@ class PrestashopConfig(models.Model):
         help_text=_("Resources Type"),
         choices=RESOURCES_TYPE_CHOICES,
     )
-    config = models.JSONField(
-        default={
-            "data_to_save": [],
-        }
-    )
-    limit_start = models.IntegerField(
+    config = models.JSONField(default=dict)
+    per_page = models.IntegerField(help_text=_("Items per page"), editable=False, default=100)
+    next_limit = models.IntegerField(
         help_text=_("Last limit pagination"), editable=False, default=0
     )
     created_at = models.DateTimeField(auto_now_add=True)

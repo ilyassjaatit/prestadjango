@@ -1,4 +1,3 @@
-import time
 from abc import ABC
 
 from django.conf import settings
@@ -10,8 +9,6 @@ from apps.customers.models import Customer
 from apps.prestashop.models import PrestashopSynchronizer as PrestaSync
 
 from .config import (
-    RESOURCES_LIMIT_ITEMS,
-    RESOURCES_SLEEP,
     RESOURCES_TYPE_ADDRESSES,
     RESOURCES_TYPE_CARTS,
     RESOURCES_TYPE_CATEGORIES,
@@ -55,27 +52,15 @@ class PsConnector:
 class PsGetResources(PsConnector, ABC):
     RESOURCES_TYPE: str
     singular_name: str
-    limit = True
-    next_limit = RESOURCES_LIMIT_ITEMS
-    sleep = RESOURCES_SLEEP
-    limit_items = RESOURCES_LIMIT_ITEMS
 
     def __init__(self):
         super().__init__()
         self.resources_name = self.RESOURCES_TYPE.lower()
 
-    # TODO Improve url generation, can cause confusion
     def _url(self, resources_id=None):
         url = str(self.url_base()) + str(self.resources_name) + "/"
         if resources_id:
             return url + str(resources_id) + "/"
-
-        if self.limit:
-            prev = self.next_limit - self.limit_items
-            limit = str(prev) + "," + str(self.limit_items)
-            url += "?limit=" + str(limit)
-            return url
-
         return url
 
     def url(self, id_resource=None):
@@ -83,21 +68,12 @@ class PsGetResources(PsConnector, ABC):
 
     # TODO Use generator in the next iteration
     def _resources(self):
-        if not self.limit:
-            return self.get(self.url())
         response = self.get(self.url()).json()
-        if response:
-            data_row = response[self.resources_name]
-        else:
-            return self.items
+        data_row = response[self.resources_name]
         if data_row:
             for item in data_row:
                 self.items.append(item)
-            self.next_limit = self.next_limit + RESOURCES_LIMIT_ITEMS
-            time.sleep(self.sleep)
-            self._resources()
-        else:
-            return self.items
+        return self.items
 
     def _resource(self, id_resource):
         response = self.get(self.url(id_resource)).json()
@@ -110,17 +86,16 @@ class PsGetResources(PsConnector, ABC):
 
     def _exist_resource(self, id_resources):
         return self.sync_model.objects.filter(
-            entity_type=self.RESOURCES_TYPE, prestashop_entity_id=id_resources
+            resources_type=self.RESOURCES_TYPE, prestashop_entity_id=id_resources
         )
 
     def save_resources(self):
         for item in self.items:
             if not self._exist_resource(item["id"]):
                 data = self.resources(item["id"])
-                time.sleep(self.sleep)
                 self.sync_model.objects.create(
                     prestashop_entity_id=item["id"],
-                    entity_type=self.RESOURCES_TYPE,
+                    resources_type=self.RESOURCES_TYPE,
                     raw_data=data,
                 )
 
